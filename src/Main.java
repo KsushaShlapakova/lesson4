@@ -1,7 +1,9 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws DuplicateAccountException, IOException, WrongCredentialsException, TooManyLoginAttemptsException {
+    public static void main(String[] args){
 
         //Создаю людей
         Person mike = new Person("Smith", "01.02.1998");
@@ -9,10 +11,10 @@ public class Main {
         Person edward = new Person("Cullen", "01.02.1899");
         Person bella = new Person("Swan", "01.02.1997");
 
-       // //Создаю менеджера
+        //Создаю менеджера
         AccountManagerImpl manager = new AccountManagerImpl();
 
-       // //Записываю в файл новых людей
+       //Записываю в файл новых людей
        try {
            manager.registerNewAccount("email", "password", mike);
            manager.registerNewAccount("email", "1234", john);
@@ -20,7 +22,7 @@ public class Main {
            manager.registerNewAccount("email", "2345678", bella);
            //Записываю уже существующего человека, должна появиться ошибка
            manager.registerNewAccount("email", "password", mike);
-       }catch(DuplicateAccountException e){
+       }catch(DuplicateAccountException | IOException e){
            System.out.println(e.getMessage());
        }
 
@@ -49,42 +51,15 @@ public class Main {
         }
 
         //Попытки авторизоваться
-        try {
-            System.out.println(manager.getPerson("eail", "pasword"));
-        }catch (WrongCredentialsException | TooManyLoginAttemptsException e){
-            System.out.println(e.getMessage());
-        }
-        try{
-            System.out.println(manager.getPerson("eadil", "password"));
-        }catch (WrongCredentialsException | TooManyLoginAttemptsException e){
-            System.out.println(e.getMessage());
-        }
-        try{
-            System.out.println(manager.getPerson("email", "2345"));
-        }catch (WrongCredentialsException | TooManyLoginAttemptsException e){
-            System.out.println(e.getMessage());
-        }
-        try{
-            System.out.println(manager.getPerson("email", "passwrd"));
-        }catch (WrongCredentialsException | TooManyLoginAttemptsException e){
-            System.out.println(e.getMessage());
-        }
-        try{
-            System.out.println(manager.getPerson("eadil", "password"));
-        }catch (WrongCredentialsException | TooManyLoginAttemptsException e){
-            System.out.println(e.getMessage());
-        }
-        try{
-            System.out.println(manager.getPerson("eadil", "password"));
-        }catch (WrongCredentialsException | TooManyLoginAttemptsException e){
-            System.out.println(e.getMessage());
-        }
-        try{
-            System.out.println(manager.getPerson("eadil", "password"));
-        }catch (WrongCredentialsException | TooManyLoginAttemptsException e){
-            System.out.println(e.getMessage());
-        }
+        authorizationPerson("em", "12", manager);
 
+    }
+    public static void authorizationPerson(String email, String password, AccountManagerImpl manager) {
+        try {
+            System.out.println(manager.getPerson(email, password));
+        }catch (WrongCredentialsException | TooManyLoginAttemptsException | IOException e){
+            System.out.println(e.getMessage());
+        }
     }
 
 }

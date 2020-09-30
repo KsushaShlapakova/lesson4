@@ -3,7 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountManagerImpl implements MailAccountManager {
+
     AttemptCounter counter = AttemptCounter.getInstance();
+
     @Override
     public void registerNewAccount(String email, String password, Person person) throws DuplicateAccountException, IOException {
         try(BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Ksusha\\IdeaProjects\\lesson4\\src\\persons.csv"));
@@ -14,7 +16,7 @@ public class AccountManagerImpl implements MailAccountManager {
                     throw new DuplicateAccountException("Аккаунт уже существует!");
                 }
             }
-            writer.write(person.toString() + ", " + email + ", " + password+"\n");
+            writer.write(person.toString() + ", " + email + ", " + password + "\n");
         }
 
     }
