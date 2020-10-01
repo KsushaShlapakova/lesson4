@@ -1,6 +1,4 @@
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args){
@@ -26,7 +24,9 @@ public class Main {
            System.out.println(e.getMessage());
        }
 
-       // //Удаление аккаунта
+       System.out.println("");
+
+       // Удаление аккаунта
         try {
             manager.removeAccount("email", "1234");
             manager.removeAccount("email", "password");
@@ -36,12 +36,16 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
+        System.out.println("");
+
         //Проверка на наличие данного человека
         try {
             System.out.println("Данный аккаунт существует/не существует (true/false): " + manager.hasAccount("el"));
         }catch(IOException e){
             e.printStackTrace();
         }
+
+        System.out.println("");
 
         //Количество аккаунтов
         try {
@@ -50,8 +54,20 @@ public class Main {
             e.printStackTrace();
         }
 
+        System.out.println("");
+
         //Попытки авторизоваться
         authorizationPerson("em", "12", manager);
+        authorizationPerson("emal", "124", manager);
+        authorizationPerson("email", "123", manager);
+        authorizationPerson("email", "2345", manager);
+        System.out.println("");
+        authorizationPerson("emal", "1234", manager);
+        authorizationPerson("email", "134", manager);
+        authorizationPerson("il", "4", manager);
+        authorizationPerson("", "", manager);
+        authorizationPerson("em", "134", manager);
+        authorizationPerson("em", "", manager);
 
     }
     public static void authorizationPerson(String email, String password, AccountManagerImpl manager) {
