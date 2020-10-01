@@ -11,10 +11,6 @@ public class Person {
         return surname;
     }
 
-    public String getBday(){
-        return bday;
-    }
-
     public String toString(){
         return surname + ", " + bday;
     }
